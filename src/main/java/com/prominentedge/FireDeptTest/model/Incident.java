@@ -23,6 +23,15 @@ public class Incident {
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "incident_number", insertable = false, updatable = false)
 	private Address address;
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumns({ @JoinColumn(name = "incident_number", referencedColumnName = "incident_number") })
+	private List<Apparatus> apparatus;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "incident_number", insertable = false, updatable = false)
+	private FireDepartment fire_department;
 
 	private String version;
 
@@ -49,5 +58,23 @@ public class Incident {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
+	public List<Apparatus> getApparatus() {
+		return apparatus;
+	}
+
+	public void setApparatus(List<Apparatus> apparatus) {
+		this.apparatus = apparatus;
+	}
+
+	public FireDepartment getFire_department() {
+		return fire_department;
+	}
+
+	public void setFire_department(FireDepartment fire_department) {
+		this.fire_department = fire_department;
+	}
+	
+	
 
 }
