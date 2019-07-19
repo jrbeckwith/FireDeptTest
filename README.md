@@ -6,7 +6,7 @@ Spring Boot project using PostgreSQL DB.
 TO RUN PROJECT:
 NOTE: The Java project will not run correctly without a connection to the underlying DB, Hibernate is particular
 
--Install PostgreSQL, then run these commands (Linux and Mac, Win commands are slightly different)
+-Install PostgreSQL, then run these commands (Linux and Mac - Win commands are slightly different)
 
     sudo -u postgres psql
     postgres=# create database FireDeptTest;
@@ -20,6 +20,7 @@ NOTE: The Java project will not run correctly without a connection to the underl
 ENPOINTS:
 
 POST - http://localhost:8080/incidentEnhanced
+    
     Header  Content-Type: application/json
     Body  (incident record json)
 
