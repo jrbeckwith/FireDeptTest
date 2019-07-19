@@ -1,4 +1,12 @@
-CREATE EXTENSION postgis;
+
+sudo -u postgres psql
+postgres=# create database FireDeptTest;
+postgres=# create user pguser with encrypted password pguser;
+postgres=# grant all privileges on database FireDeptTest to pguser;
+
+DROP SCHEMA IF EXISTS incident CASCADE;
+
+CREATE SCHEMA incident;
 
 DROP TABLE IF EXISTS incident.incident CASCADE;
 
@@ -116,6 +124,11 @@ CREATE TABLE IF NOT EXISTS incident.unit_enroute (
 	latitude FLOAT,
 	longitude FLOAT,
 	timestamp TIMESTAMP,
+	PRIMARY KEY (incident_number)
+);
+
+CREATE TABLE IF NOT EXISTS incident.unit_status (
+	incident_number VARCHAR(255) REFERENCES incident.incident(incident_number) NOT NULL,
 	PRIMARY KEY (incident_number)
 );
 

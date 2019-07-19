@@ -43,6 +43,11 @@ public class Apparatus {
 	
 	private String unit_id;
 	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "incident_number", insertable = false, updatable = false)
+	private UnitStatus unit_status;
+	
 	private String unit_type;
 
 	public String getIncidentNumber() {
@@ -115,6 +120,14 @@ public class Apparatus {
 
 	public void setUnit_type(String unit_type) {
 		this.unit_type = unit_type;
+	}
+
+	public UnitStatus getUnit_status() {
+		return unit_status;
+	}
+
+	public void setUnit_status(UnitStatus unit_status) {
+		this.unit_status = unit_status;
 	}
 	
 	

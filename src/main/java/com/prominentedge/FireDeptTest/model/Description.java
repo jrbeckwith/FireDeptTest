@@ -15,15 +15,12 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "description", schema = "incident")
 public class Description {
 	@Id
 	@NotBlank
 	@Column(name = "incident_number")
-	@JsonIgnore
 	private String incidentNumber;
 	
 	private String comments;

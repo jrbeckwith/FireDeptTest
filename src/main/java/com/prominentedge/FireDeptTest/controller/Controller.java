@@ -1,24 +1,19 @@
 package com.prominentedge.FireDeptTest.controller;
 
-import java.util.Collections;
-import java.util.Map;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.prominentedge.FireDeptTest.model.Incident;
-import com.prominentedge.FireDeptTest.repository.AddressRepo;
 import com.prominentedge.FireDeptTest.repository.IncidentRepo;
 
 @RestController
@@ -27,12 +22,25 @@ public class Controller {
 	@Autowired
 	private IncidentRepo incidentRepo;
 	
+	@RequestMapping(value = "/incidentEnhanced", method = RequestMethod.POST)
+	public ResponseEntity<?> getIncidentEnhanced(@RequestBody Incident input) throws ParseException{
+		
+		input.setWeather(addWeatherData(input));
+		
+		try {
+			input.setParcel_data(addParcelData(input));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return ResponseEntity.ok(input);
+	}
+	
+	
 	@GetMapping("/incidents/{incident_number}")
     public ResponseEntity<?> getIncidentByIncidentNumber(@PathVariable String incident_number) {
 		
 		Incident incident = incidentRepo.findByIncidentNumber(incident_number);
-        
-		JSONObject jsonOutput = new JSONObject();
 		
 		incident.setWeather(addWeatherData(incident));
 		
