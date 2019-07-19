@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.json.simple.JSONObject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,9 +32,20 @@ public class Incident {
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "incident_number", insertable = false, updatable = false)
+	private Description description;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "incident_number", insertable = false, updatable = false)
 	private FireDepartment fire_department;
 
 	private String version;
+	
+	@Transient
+	private JSONObject weather;
+	
+	@Transient
+	private JSONObject parcel_data;
 
 	public String getIncidentNumber() {
 		return incidentNumber;
@@ -67,6 +79,14 @@ public class Incident {
 		this.apparatus = apparatus;
 	}
 
+	public Description getDescription() {
+		return description;
+	}
+
+	public void setDescription(Description description) {
+		this.description = description;
+	}
+
 	public FireDepartment getFire_department() {
 		return fire_department;
 	}
@@ -74,7 +94,21 @@ public class Incident {
 	public void setFire_department(FireDepartment fire_department) {
 		this.fire_department = fire_department;
 	}
-	
-	
+
+	public JSONObject getWeather() {
+		return weather;
+	}
+
+	public void setWeather(JSONObject weather) {
+		this.weather = weather;
+	}
+
+	public JSONObject getParcel_data() {
+		return parcel_data;
+	}
+
+	public void setParcel_data(JSONObject parcel_data) {
+		this.parcel_data = parcel_data;
+	}
 
 }
