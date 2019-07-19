@@ -21,7 +21,7 @@ public class Description {
 	@Id
 	@NotBlank
 	@Column(name = "incident_number")
-	private String incidentNumber;
+	private String incident_number;
 	
 	private String comments;
 	
@@ -52,12 +52,12 @@ public class Description {
 	
 	private String type;
 
-	public String getIncidentNumber() {
-		return incidentNumber;
+	public String getIncident_number() {
+		return incident_number;
 	}
 
-	public void setIncidentNumber(String incidentNumber) {
-		this.incidentNumber = incidentNumber;
+	public void setIncident_number(String incident_number) {
+		this.incident_number = incident_number;
 	}
 
 	public String getComments() {
